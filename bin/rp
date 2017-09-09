@@ -1,0 +1,22 @@
+#!/bin/bash 
+
+OnVpn=$(ifconfig | grep cscotun0)
+
+if [ -n "$OnVpn" ]
+then 
+    host="l1"
+    dir="/home/fenton/website/"
+    workDoco="/home/fenton/work-doco/"
+else
+    host="dh"
+    dir="/home/ftravers/spicevan.com/current/public/"
+fi
+
+cd ~/bin/website/ 
+rsync -avP --stats . $host:$dir
+
+if [ -n "$OnVpn" ]
+then
+    cd ~/bin/work-doco/ 
+    rsync -avP --stats . $host:$workDoco
+fi

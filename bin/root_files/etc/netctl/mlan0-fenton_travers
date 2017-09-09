@@ -1,0 +1,7 @@
+Description='Automatically generated profile by wifi-menu'
+Interface=mlan0
+Connection=wireless
+Security=wpa
+ESSID=fenton_travers
+IP=dhcp
+Key=gumnuts8

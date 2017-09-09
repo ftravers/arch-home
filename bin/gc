@@ -1,0 +1,3 @@
+#!/bin/bash
+
+git clone ft_git3@spicevan.com:$1

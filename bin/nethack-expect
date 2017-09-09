@@ -1,0 +1,19 @@
+expect "Shall I pick a character"
+send "n\r"
+spawn nethack
+interact
+
+
+
+# expect "Wizard"
+# send "w\r"
+
+# expect "Choosing Race"
+# send "e\r"
+
+# expect "Choosing Gender"
+# send "f\r"
+
+# expect "It is written in the Book of Anhur"
+# send "\r"
+

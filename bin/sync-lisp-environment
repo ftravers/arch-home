@@ -1,0 +1,9 @@
+#!/bin/bash
+
+cd ~/projects/lisp/urban-farmer/
+git pull origin master &
+cd ../common-socialisp/
+git pull origin master &
+
+
+

@@ -1,0 +1,8 @@
+[Unit]
+Description=Restore alsa settings
+
+[Service]
+ExecStart=/usr/bin/alsactl -f /home/fenton/.asound.state restore
+
+[Install]
+WantedBy=multi-user.target

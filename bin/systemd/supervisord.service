@@ -1,0 +1,11 @@
+[Unit]
+Description=Start the python supervisord process
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/supervisord -c /etc/supervisord.conf
+PIDFile=/var/run/supervisord.pid
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target

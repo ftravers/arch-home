@@ -53,7 +53,6 @@
 .zshrc.pre-oh-my-zsh
 .zshrc~
 Downloads/
-bin/
 data.edn
 fenton/
 movies/

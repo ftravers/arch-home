@@ -1,0 +1,4 @@
+#!/bin/bash
+xterm -hold -e "cd ~/projects/pricecompare; rails s" &
+xterm -hold -e "cd ~/projects/pricecompare; bundle exec guard" &
+

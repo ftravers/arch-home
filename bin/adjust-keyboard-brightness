@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+filename=/sys/devices/platform/samsung/leds/samsung::kbd_backlight/brightness
+val=$(< $filename)
+increase_amount=$1
+newval=$(($val+$increase_amount))
+
+if [[ "$increase_amount" -gt 0 ]]; then
+    if [[ "$val" -gt 3 ]]; then 
+        exit 1
+    fi
+fi 
+
+if [[ "$increase_amount" -lt 0 ]]; then
+    if [[ "$val" -lt 1 ]]; then 
+        exit 1
+    fi
+fi
+
+echo "Oldval: $val"
+echo "Newval: $newval"
+
+sudo bash -c "echo $newval > $filename"
+

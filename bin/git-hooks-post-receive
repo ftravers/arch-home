@@ -1,0 +1,48 @@
+#!/bin/bash
+
+mail_fenton=true
+mail_ii=true
+mail_cisco=true
+mail_avaya=true
+mail_oracle=false
+
+ii_emails=("brett.holleman@inin.com" "david.fuller@inin.com")
+cisco_emails=("jahayden@cisco.com" "sbehzad@cisco.com")
+avaya_emails=("ssmith@avaya.com" "abouzemberg@avaya.com" "krcouls@avaya.com")
+fenton_emails=("fenton.travers@gmail.com")
+oracle_emails=("fenton.travers@oracle.com" "christophe.bayle@oracle.com" "matthew.leathers@oracle.com" "lawrence.johnson@oracle.com" "scott.glascock@oracle.com""ian.mclaughlan@oracle.com" "ruben.lihet@oracle.com")
+
+repo="`pwd | awk 'BEGIN { FS = "/" } ; { print $(NF) }' | awk 'BEGIN { FS = "." } ; { print $1 }'`"
+
+emailMessage() {
+	email=$1
+	git log -1 --stat --pretty=format:"%h %an %ae %n %s" | mail -s "$repo: repo has been modified." $email
+}
+
+if [ $mail_fenton ] ; then
+	for email in "${fenton_emails[@]}"
+	do
+		emailMessage $email
+	done
+fi
+
+if [ $mail_ii ] ; then
+        for email in "${ii_emails[@]}"
+        do
+                emailMessage $email
+        done
+fi
+
+if [ $mail_avaya ] ; then
+        for email in "${avaya_emails[@]}"
+        do
+                emailMessage $email
+        done
+fi
+
+if [ $mail_cisco ] ; then
+        for email in "${cisco_emails[@]}"
+        do
+                emailMessage $email
+        done
+fi

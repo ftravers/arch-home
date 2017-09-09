@@ -1,0 +1,21 @@
+[Unit]
+Description=PostgreSQL database server
+After=network.target
+
+[Service]
+Type=forking
+TimeoutSec=120
+User=postgres
+Group=postgres
+
+Environment=PGROOT=/home/postgres-data
+SyslogIdentifier=postgres
+
+PIDFile=/home/postgres-data/postmaster.pid
+ExecStartPre=/usr/bin/postgresql-check-db-dir ${PGROOT}
+ExecStart= /usr/bin/pg_ctl -s -D ${PGROOT} start -w -t 120
+ExecReload=/usr/bin/pg_ctl -s -D ${PGROOT} reload
+ExecStop=  /usr/bin/pg_ctl -s -D ${PGROOT} stop -m fast
+
+[Install]
+WantedBy=multi-user.target

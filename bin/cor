@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ $# -eq 1 ]
+then
+    git checkout -b $1 origin/$1
+else
+  echo "cor = git checkout remote branch locally.  Create a local branch that tracks a remote branch (a local tracking branch)."
+	echo "Usage: $0 <remote branch name>"
+fi

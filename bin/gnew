@@ -1,0 +1,7 @@
+#!/bin/bash
+
+pwd=${PWD##*/}
+cmd="git remote add origin ft_git3@spicevan.com:${pwd}.git"
+echo "Executing: $cmd"
+`$cmd`
+git push origin master:refs/heads/master

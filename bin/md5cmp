@@ -1,0 +1,30 @@
+#!/usr/bin/env zsh
+
+scriptname=`basename $0`
+
+usage() {
+    scriptname=$0
+    print "$scriptname -f <file> -m <md5sum>"
+}
+
+zparseopts f:=filename m:=md5sum
+
+if [[ $#filename -lt 1 ]]; then 
+    usage
+    exit 1
+fi
+
+if [[ $#md5sum -lt 1 ]]; then 
+    usage
+    exit 1
+fi
+
+calculated_md5sum=`md5sum $filename[2] | awk '{print $1}'`
+provided_md5sum=`cat $md5sum[2] | awk '{print $1}'`
+if [[ $calculated_md5sum == $provided_md5sum ]]; then
+    print "MD5SUMs are the same."
+    exit 0
+else
+    print "The MD5SUMs are not the same!"
+    exit 1
+fi

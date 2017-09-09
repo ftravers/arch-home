@@ -1,0 +1,27 @@
+#!/bin/bash
+
+stDir() {
+    dir=$1
+    echo ""
+    echo "$dir"
+    echo "----------------------------"
+    cd $dir
+    git add .
+    git commit -am "."
+    git pull spicevan master
+    cd ..
+}
+
+dirs=("avaya-cc" "cisco-cc" "ii-cc" "cc-all-reference" "oracle-internal-cc" "fenton-cc")
+
+cd ~/projects/cur-DIR
+
+for dir in "${dirs[@]}"
+do
+  stDir $dir
+done
+
+
+
+
+

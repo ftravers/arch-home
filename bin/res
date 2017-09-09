@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [ $# -eq 1 ] 
+then
+    mvn resources:resources resources:testResources -P$1
+else
+    mvn resources:resources resources:testResources
+fi

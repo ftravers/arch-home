@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# do: aplay -l
+
+# get device and card for your devices
+
+# Plantronics Headset
+# card 1: C420 [Plantronics C420], device 0: USB Audio [USB Audio]
+#   Subdevices: 1/1
+#   Subdevice #0: subdevice #0
+# =====>  Therefore card = 1, device = 0
+usb_card=1
+usb_device=0
+
+# Motherboard
+# card 2: Intel [HDA Intel], device 0: AD1984A Analog [AD1984A Analog]
+#   Subdevices: 1/1
+#   Subdevice #0: subdevice #0
+# card 2: Intel [HDA Intel], device 2: AD1984A Alt Analog [AD1984A Alt Analog]
+#   Subdevices: 1/1
+#   Subdevice #0: subdevice #0
+motherboard_card=2
+motherboard_device=0
+
+# key settings from: `~/.asoundrc` file:
+
+ # defaults.pcm.card 2
+ # defaults.pcm.device 0
+ # defaults.ctl.card 2
+
+# Replace 'card x' with 'card y'
+card=`cat ~/.asoundrc | awk "/defaults.pcm.card/ {print \\$2}"`
+if [[ "$card" -eq "$usb_card" ]]; then
+    sed -i "s/card ${usb_card}/card ${motherboard_card}/g" ~/.asoundrc
+else
+    sed -i "s/card ${motherboard_card}/card ${usb_card}/g" ~/.asoundrc
+fi
+
+device=`cat ~/.asoundrc | awk "/defaults.pcm.device/ {print \\$2}"`
+if [[ "$device" -eq "$device" ]]; then
+    sed -i "s/device ${usb_device}/device ${motherboard_device}/g" ~/.asoundrc
+else
+    sed -i "s/device ${motherboard_device}/device ${motherboard_device}/g" ~/.asoundrc
+fi
