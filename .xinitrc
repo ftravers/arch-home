@@ -2,15 +2,13 @@
 [[ -f ~/.Xresources ]] && xrdb ~/.Xresources
 
 
-# xset +fp /usr/share/fonts/local
-# xset fp rehash
+# Sync clipboard and primary
+autocutsel -selection CLIPBOARD -fork & # Clip->Primary
+autocutsel -selection PRIMARY -fork & # Primary->Clip
 
 
-# keep CLIPBOARD in sync with PRIMARY
-autocutsel -selection CLIPBOARD -fork &
-
-# keep PRIMARY in sync with CLIPBOARD
-autocutsel -selection PRIMARY -fork &
+# Extend Monitors if attached
+~/bin/pick_monitors.sh &
 
 
 # Launch WM

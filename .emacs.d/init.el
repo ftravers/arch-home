@@ -30,6 +30,7 @@
 (require 'use-package)
 
 (use-package markdown-mode :ensure markdown-mode)
+(use-package expand-region :ensure expand-region)
 ;(use-package markdown-mode :ensure t
 ;:commands (markdown-mode gfm-mode) :mode (("README\\.md\\'" . gfm-mode) ("\\.md\\'" . markdown-mode) ("\\.markdown\\'" . markdown-mode))
 ;:init (setq markdown-command "multimarkdown"))
@@ -190,15 +191,13 @@
        (hs-toggle-hiding)
        (beginning-of-line))
 
-
-
 (eval-after-load "lispy"
   `(progn
      (my-remove-lispy-key (kbd "d"))
+     (my-remove-lispy-key (kbd "C-,"))
      (lispy-define-key lispy-mode-map (kbd "e") 'cider-eval-last-sexp)
      (lispy-define-key lispy-mode-map (kbd "d") 'lispy-kill-at-point)
      (lispy-define-key lispy-mode-map (kbd "x") 'collapse-expand)))
-
 
 ;; cider-eval-last-sexp
 ;; ---------------------------
@@ -274,6 +273,9 @@
    (define-key clojure-mode-map (kbd "C-c c") #'figwheel-cljs-repl)
    (define-key clojure-mode-map (kbd "C-c l") #'lispy-mode)
    (define-key clojure-mode-map (kbd "C-c s") #'toggle-show-hide-all)
+   (define-key clojure-mode-map (kbd "C-j") #'er/expand-region)
+   (define-key clojure-mode-map (kbd "C-.") #'mc/mark-next-like-this)
+   (define-key clojure-mode-map (kbd "C-,") #'mc/mark-prev-like-this)
    
    (clj-refactor-mode 1)
    (cljr-add-keybindings-with-prefix "C-c C-m") ;; This choice of keybinding leaves cider-macroexpand-1 unbound
@@ -391,3 +393,4 @@
 
 ;; (debug-on-entry 'org2markdown-bring-code)
 ;; (cancel-debug-on-entry 'org2markdown-bring-code)
+
