@@ -79,3 +79,8 @@ download lpr and cups hll2320d rpm wrapped drivers from brothers
 website
 
 : sudo systemctl enable org.cups.cupsd.service
+* gnupg lein
+
+in order to release libraries into clojars need to have dirs:
+
+~/.gnupg and ~/.lein 

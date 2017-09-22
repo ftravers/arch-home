@@ -195,6 +195,7 @@
   `(progn
      (my-remove-lispy-key (kbd "d"))
      (my-remove-lispy-key (kbd "C-,"))
+     (my-remove-lispy-key (kbd "C-j"))
      (lispy-define-key lispy-mode-map (kbd "e") 'cider-eval-last-sexp)
      (lispy-define-key lispy-mode-map (kbd "d") 'lispy-kill-at-point)
      (lispy-define-key lispy-mode-map (kbd "x") 'collapse-expand)))
@@ -255,15 +256,19 @@
           '(lambda ()
              (define-key cider-repl-mode-map (kbd "C-c r") #'cider-repl-refresh)))
 
-(setq hide-all t)
+(defvar hide-all 0)
 
-(defun toggle-show-hide-all () (interactive)
-       (if hide-all
-           (progn
-             (hs-show-all)
-             (setq hide-all nil))
-         (progn (hs-hide-all)
-                (setq hide-all t))))
+(defun toggle-show-hide-all ()
+  (interactive)
+  (if hide-all
+      (progn
+        (message "everything was hidden, now show it")
+        (hs-show-all)
+        (setq hide-all 0))
+    (progn
+      (message "everything was displayed, now hide it")
+      (hs-hide-all)
+      (setq hide-all 1))))
 
 (add-hook
  'clojure-mode-hook
@@ -272,7 +277,8 @@
    (define-key clojure-mode-map (kbd "C-c r") #'mount-reset)
    (define-key clojure-mode-map (kbd "C-c c") #'figwheel-cljs-repl)
    (define-key clojure-mode-map (kbd "C-c l") #'lispy-mode)
-   (define-key clojure-mode-map (kbd "C-c s") #'toggle-show-hide-all)
+   (define-key clojure-mode-map (kbd "C-c s") #'hs-show-all)
+   (define-key clojure-mode-map (kbd "C-c h") #'hs-hide-all)
    (define-key clojure-mode-map (kbd "C-j") #'er/expand-region)
    (define-key clojure-mode-map (kbd "C-.") #'mc/mark-next-like-this)
    (define-key clojure-mode-map (kbd "C-,") #'mc/mark-prev-like-this)
@@ -288,7 +294,6 @@
         "slateblue1" "magenta1" "purple"))
 (setq hl-paren-background-colors
       '("black" "black" "black" "black" "black" "black" "black" "black"))
-
 
 (add-hook 'prog-mode-hook
           (lambda ()
