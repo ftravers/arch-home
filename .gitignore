@@ -60,3 +60,6 @@ phone.txt
 projects/
 tmp/
 ttt/
+.emacs.d/
+.lein/
+.gnupg/
