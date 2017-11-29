@@ -29,7 +29,6 @@
 .emacs.d/recentf
 .emacs.d/tramp
 .emacs.orig
-.emacs~
 .esd_auth
 .gitconfig
 .gnome/
@@ -63,3 +62,15 @@ ttt/
 .emacs.d/
 .lein/
 .gnupg/
+.asoundrc.orig
+.babel.json
+.config/configstore/*
+.config/evince/*
+.config/gconf/*
+.config/git/*
+.config/obs-studio/*
+/.config/pavucontrol.ini
+/.emacs~
+/.floorc.json
+.npm/*
+/udev.out

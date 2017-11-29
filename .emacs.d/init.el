@@ -29,11 +29,14 @@
       (package-install 'use-package)))
 (require 'use-package)
 
+(use-package floobits :ensure floobits)
 (use-package markdown-mode :ensure markdown-mode)
 (use-package expand-region :ensure expand-region)
 ;(use-package markdown-mode :ensure t
 ;:commands (markdown-mode gfm-mode) :mode (("README\\.md\\'" . gfm-mode) ("\\.md\\'" . markdown-mode) ("\\.markdown\\'" . markdown-mode))
 ;:init (setq markdown-command "multimarkdown"))
+(use-package helm-ag :ensure helm-ag)
+
 (use-package lua-mode :ensure lua-mode)
 (use-package markdown-mode :ensure markdown-mode)
 (use-package ox-gfm :ensure ox-gfm)
@@ -77,6 +80,9 @@
       helm-recentf-fuzzy-match    t)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-x c o") 'helm-occur)
+(global-set-key (kbd "C-o") 'other-window)
+(global-set-key (kbd "C-x o") 'other-window)
+(global-set-key (kbd "C-x C-o") 'other-window)
 (global-set-key (kbd "C-c f") 'helm-recentf)
 
 ;; (global-set-key (kbd "C-c h") 'helm-mini)
@@ -277,7 +283,7 @@
    (define-key clojure-mode-map (kbd "C-c r") #'mount-reset)
    (define-key clojure-mode-map (kbd "C-c c") #'figwheel-cljs-repl)
    (define-key clojure-mode-map (kbd "C-c l") #'lispy-mode)
-   (define-key clojure-mode-map (kbd "C-c s") #'hs-show-all)
+   (define-key clojure-mode-map (kbd "C-c s") #'helm-do-ag-project-root)
    (define-key clojure-mode-map (kbd "C-c h") #'hs-hide-all)
    (define-key clojure-mode-map (kbd "C-j") #'er/expand-region)
    (define-key clojure-mode-map (kbd "C-.") #'mc/mark-next-like-this)
@@ -396,6 +402,59 @@
      (add-to-list 'org-export-filter-src-block-functions
                   'org2markdown-bring-code)))
 
-;; (debug-on-entry 'org2markdown-bring-code)
-;; (cancel-debug-on-entry 'org2markdown-bring-code)
+;; Setup agenda stuff
+(require 'org)
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+(setq org-log-done t)
 
+(setq org-agenda-files (list "~/projects/bud-commerce/todo.org"
+                             "~/projects/glfe/todo.org"
+                             "~/projects/fenton-todo.org")) ;; setup agenda files
+(setq org-main-file "~/projects/fenton-todo.org")
+
+(defun valeriy/exit ()
+  (with-current-buffer (find-file-noselect org-main-file)
+    (save-excursion
+      (org-clock-out nil t)
+      (save-buffer))))
+
+(add-hook 'kill-emacs-hook #'valeriy/exit)
+
+;; clocking time on tasks
+(setq org-clock-persist 'history)
+(org-clock-persistence-insinuate)
+
+;; Resume clocking task when emacs is restarted
+;; (org-clock-persistence-insinuate)
+
+;; Save the running clock and all clock history when exiting Emacs, load it on startup
+(setq org-clock-persist t)
+;; Resume clocking task on clock-in if the clock is open
+(setq org-clock-in-resume t)
+;; Do not prompt to resume an active clock, just resume it
+(setq org-clock-persist-query-resume t)
+
+;; Change tasks to whatever when clocking in
+;; (setq org-clock-in-switch-to-state "NEXT")
+
+;; Save clock data and state changes and notes in the LOGBOOK drawer
+(setq org-clock-into-drawer t)
+;; Sometimes I change tasks I'm clocking quickly - this removes clocked tasks
+;; with 0:00 duration
+(setq org-clock-out-remove-zero-time-clocks t)
+;; Clock out when moving task to a done state
+(setq org-clock-out-when-done t)
+;; Enable auto clock resolution for finding open clocks
+(setq org-clock-auto-clock-resolution (quote when-no-clock-is-running))
+;; Include current clocking task in clock reports
+(setq org-clock-report-include-clocking-task t)
+;; use pretty things for the clocktable
+(setq org-pretty-entities t)
+;; If idle for more than 5 minutes, resolve the things by asking what to do
+;; with the clock time
+(setq org-clock-idle-time 5)
+
+
+;; .repl opens in clojure mode
+(add-to-list 'auto-mode-alist '("\\.repl\\'" . clojure-mode))
