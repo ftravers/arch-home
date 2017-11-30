@@ -73,6 +73,14 @@ abraxas.views.bid.bid-list> @(subscribe [:active-panel])
   :LOGBOOK:  
   :END:      
 
+** TODO #143 Formalize Specs
+
+start with offers
+
+merge UI spec with regular spec...dont have two
+
+maybe use orchestra to enable all the functional specs
+
 ** TODO #185 REPL Reset
 
 seems when figwheel compile cljs it dumps files into 'resources'

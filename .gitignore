@@ -74,3 +74,5 @@ ttt/
 /.floorc.json
 .npm/*
 /udev.out
+abx/*
+\tmp/*
