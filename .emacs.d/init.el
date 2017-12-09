@@ -204,7 +204,8 @@
      (my-remove-lispy-key (kbd "C-j"))
      (lispy-define-key lispy-mode-map (kbd "e") 'cider-eval-last-sexp)
      (lispy-define-key lispy-mode-map (kbd "d") 'lispy-kill-at-point)
-     (lispy-define-key lispy-mode-map (kbd "x") 'collapse-expand)))
+     (lispy-define-key lispy-mode-map (kbd "x") 'collapse-expand)
+     (lispy-define-key lispy-mode-map (kbd "o") 'other-window)))
 
 ;; cider-eval-last-sexp
 ;; ---------------------------
@@ -458,3 +459,5 @@
 
 ;; .repl opens in clojure mode
 (add-to-list 'auto-mode-alist '("\\.repl\\'" . clojure-mode))
+
+(setq magit-bisect-show-graph t)
